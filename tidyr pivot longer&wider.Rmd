@@ -1,0 +1,86 @@
+---
+title: "tidyr::pivot_longer &_wider"
+author: "OPPY"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, error = TRUE, messages = FALSE, warning = FALSE)
+```
+
+## **Introduction** : pivot_wider() "widens" data, increasing the number of columns and decreasing the number of rows. The inverse transformation is [pivot_longer()](https://tidyr.tidyverse.org/reference/pivot_longer.html). Source: R/pivot-wide.R Learn more in [vignette("pivot")](https://tidyr.tidyverse.org/articles/pivot.html).
+
+### **Aim** : to study the functionality of pivot_longer & pivot_wider then use both on a sample datasets.
+
+### **Objective** : At the end of this project, studier must be able to use both pivot_longer & pivot_wider on any applicable dataset.
+
+#### **Dataset** : Orange. An inbuilt dataset in R
+
+#### **Package** : tidyr. [tidyr](https://tidyr.tidyverse.org/) is one of the packages that make up the tidyverse. [Tidyverse](https://www.tidyverse.org/) is a collection of r packages that are used for data manipulation in R.
+
+```{r}
+install.packages("tidyverse", lib = "/usr/lib/R/library", repos = "http://cran.us.r-project.org")
+library(tidyverse)
+```
+
+
+#### Bring dataset into the global environment
+```{r}
+data(Orange)
+```
+
+```{r}
+View(Orange)
+```
+
+For the purpose of this study glimpse will be use to explore to understand the parameters of the dataset.
+
+For more ways to understand the components and structure of your datasets see [Telescope Your Dataset](https://medium.com/@fadare.opeyemi/telescope-your-dataset-220bc380522b)
+
+```{r}
+glimpse(Orange)
+```
+
+### pivot_wider
+
+?pivot_wider (learn about pivot_wider)
+
+#### Create same object with a new and different name, then apply pivot_wider on new object.
+```{r}
+Orange_2 <- Orange
+```
+
+#### Applying pivot_wider
+```{r}
+Orange_2 %>% 
+  pivot_wider(names_from = "age", values_from = "circumference")
+```
+
+#### Create Orange_2 into a new object, then apply pivot_longer to the new object.
+```{r}
+Orange_3 <- Orange_2 %>% 
+  pivot_wider(names_from = "age", values_from = "circumference") %>% 
+  view()
+```
+
+### pivot_longer 
+
+?pivot_longer (learn about pivot_longer)
+
+#### Applying the function pivot_longer to the wide dataset "Orange_3"
+```{r}
+Orange_3 %>% 
+  pivot_longer(cols = 2:8, names_to = "age", values_to = "circumference")
+```
+
+#### Create the new longer table into a new dataset
+```{r}
+Orange_4 <- Orange_3 %>% 
+  pivot_longer(cols = 2:8, names_to = "age", values_to = "circumference")
+```
+
+### **Conclusion** : Orange, the original dataset (Orange) was a long dataset. Pivot_wider was used to make it wide (Orange_2, Orange_3 as new object). Then, the pivot_longer function was used to make Orange_3 longer.
+
+### **Summary** : Pivot_wider and pivot_longer are a reverse function of each other. As the name implies "pivot_wider" makes your long dataset wide while "pivot_longer" makes a wide dataset longer. 
